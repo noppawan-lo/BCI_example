@@ -1,0 +1,57 @@
+---
+title: "BCI example"
+author: "Noppawan Lomwong"
+date: "2023-03-07"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Vegan package
+```{r}
+#install.packages("vegan")
+library(vegan)
+
+data(BCI)
+
+head(BCI[,1:3])
+```
+
+## Vegan package calculate
+```{r}
+#Shannon diversity
+H <- diversity(BCI)
+
+#Simpson diversity
+simp <- diversity(BCI, "simpson")
+
+#Inverse Simpson diversity
+invsimp <- diversity(BCI, "inv")
+
+#Fisher alpha
+alpha <- fisher.alpha(BCI)
+
+#Density (number of stems)
+D <- rowSums(BCI)
+
+#Species richness (number of species)
+S <- specnumber(BCI) 
+
+#Pielou's evenness (J)
+J <- H/log(S)
+
+#create table of all index 
+Index <- data.frame(H, simp, invsimp, alpha, D, S, J)
+names(Index)<- c("Shannon","Simpson","Insimpson","Fisher","Density","Richness","Evenness")
+
+head(Index)
+```
+
+## Calculate richness index
+```{r}
+#Calculate richness index
+Index$Margeleff = ((Index$Richness)-1)/(log(Index$Density))
+Index$Menhnick = (Index$Richness)/(sqrt(Index$Density))
+
+head(Index)
+```
