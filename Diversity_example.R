@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------------
 
 #Folder
-Folder = "D:/MC_Project/Data/"  
+Folder = "D:/MC_Project/Example/"  
 
 #Data_Name 
 Data_Name = "Liana_Plot.xlsx"
@@ -11,8 +11,11 @@ Data_Name = "Liana_Plot.xlsx"
 #-------------------------------------------------------------------------------
 
 ## Read file
+
+setwd(paste0(Folder))
+
 library(openxlsx)
-Data <- read.xlsx("D:/MC_Project/Data/Liana_Plot.xlsx")
+Data <- read.xlsx(Data_Name)
 
 #-------------------------------------------------------------------------------
 
@@ -46,13 +49,16 @@ names(Index)<- c("Shannon","Simpson","Insimpson","Density",
 
 #-------------------------------------------------------------------------------
 
-#Calculate richness index
+##Calculate richness index
+#Margeleff index = S-1 / In(N)
 Index$Margeleff = ((Index$Richness)-1)/(log(Index$Density))
+
+#Menhnick index = S / square root (N)
 Index$Menhnick = (Index$Richness)/(sqrt(Index$Density))
 
 #-------------------------------------------------------------------------------
 
 ##Save file
-write.xlsx(Index,"D:/MC_Project/Data/Index.xlsx")
+write.xlsx(Index,"Index.xlsx")
 
 #-------------------------------------------------------------------------------
