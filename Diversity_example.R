@@ -58,7 +58,7 @@ Index$Menhnick = (Index$Richness)/(sqrt(Index$Density))
 
 #-------------------------------------------------------------------------------
 
-##Save file
-write.xlsx(Index,"Index.xlsx")
+##Save file 
+write.xlsx(Index,paste0("Output_",Data_Name))
 
 #-------------------------------------------------------------------------------
